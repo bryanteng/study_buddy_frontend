@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import deltas from './deltas';
+import page from './page';
+import login from './login'
+
 
 export default combineReducers({
-  deltas
+  page, login
 });

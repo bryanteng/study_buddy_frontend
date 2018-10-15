@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
-import ReactQuill, {Quill} from 'react-quill'; // ES6
+import ReactQuill from 'react-quill'; // ES6
 import 'react-quill/dist/quill.snow.css'; // ES6
 // import ImageResize from 'quill-image-resize-module';
-//
 // Quill.register('modules/imageResize', ImageResize)
-
+import Notebook from './containers/notebook'
+import { connect } from 'react-redux'
+import { setDelta } from './actions/page'
 
 
 class App extends Component {
 
-  state={
-    user: 1,
-    category: 1,
-    document_id: 1,
-    delta: ""
-  }
-
   handleChange = (content, delta, source, editor) => {
     if (source === "user"){
-    fetch(`http://localhost:3000/documents/${this.state.document_id}`,{
+    fetch(`http://localhost:3000/documents/${this.props.document_id}`,{
       method: "PATCH",
       headers:{
             "Content-type": "application/json"
@@ -27,33 +21,51 @@ class App extends Component {
         body: JSON.stringify({delta: editor.getContents().ops})
       }
     ).then(res => res.json())
-    .then(data => this.setState({delta: data.delta}))
+    .then(data => this.props.setDelta(data.delta))
     }
   }
 
   componentDidMount(){
-    fetch(`http://localhost:3000/documents/${this.state.document_id}`)
+    fetch(`http://localhost:3000/documents/${this.props.document_id}`)
     .then(res=> res.json())
-    .then(data => this.setState({delta: data.delta}))
+    .then(data => this.props.setDelta(data.delta))
   }
 
     render() {
     return (
       <div className="App">
+        <Notebook />
         <div id="editor">
-          <ReactQuill theme="snow"
+          <ReactQuill
             onChange={this.handleChange}
             defaultValue="hello world"
-            value={this.state.delta}
-             modules={App.modules}
-             formats={App.formats}>
+            value={this.props.delta}
+            modules={App.modules}
+            formats={App.formats}>
          </ReactQuill>
         </div>
       </div>
     );
   }
 }
-export default App;
+
+const mapStateToProps = (state) => {
+  return {
+    user_id: state.login.user_id,
+    document_id: state.page.document_id,
+    delta: state.page.delta
+  }
+}
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    setDelta: (delta) =>{
+      dispatch(setDelta(delta))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 App.modules = {
   toolbar: [
