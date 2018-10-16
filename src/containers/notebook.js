@@ -59,8 +59,6 @@ class Notebook extends Component{
           </div>
         </div>
       )}
-
-
         <Page />
       </Fragment>
     )
