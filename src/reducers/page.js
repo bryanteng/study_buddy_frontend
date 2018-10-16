@@ -1,4 +1,4 @@
-export default function pageReducer(state = {document_id: 2, delta: "", user_documents: []}, action){
+export default function pageReducer(state = {document_id: 1, delta: "", user_documents: [], user_categories: []}, action){
     switch (action.type) {
 
       case 'SET_DELTA':
@@ -14,10 +14,15 @@ export default function pageReducer(state = {document_id: 2, delta: "", user_doc
         }
 
         case 'SET_DOCUMENT':
-        console.log(this.state);
         return{
           ...state,
           document_id: action.payload
+        }
+
+        case 'SET_CATEGORIES':
+        return{
+          ...state,
+          user_categories: action.payload
         }
 
       default:
