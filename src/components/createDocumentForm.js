@@ -1,6 +1,7 @@
 import React, { Component,Fragment } from 'react';
 import { connect } from 'react-redux'
 import { addCategory, addDocument } from '../actions/page'
+import { fetchDocument } from '../actions/create_document_form'
 
 class CreateDocumentForm extends Component{
 
@@ -17,19 +18,8 @@ class CreateDocumentForm extends Component{
   handleFormSubmit = (event) =>{
     event.preventDefault();
 
-    fetch('http://localhost:3000/documents-and-category',{
-        method: "POST",
-        headers:{
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify({user_id: this.props.user_id, name: this.state.categoryName, title: this.state.documentTitle})
-      }
-    ).then(res => res.json())
-    .then(data => {
-      console.log(data)
-      // this.props.addDocument(data.document)
-      this.props.addCategory(data.category)
-    })
+    this.props.fetchDocument(this.props.user_id, this.state.categoryName, this.state.documentTitle)
+
   }
 
   handleInputChange = (event) =>{
@@ -66,6 +56,4 @@ const mapStateToProps = (state) =>{
   }
 }
 
-
-
-export default connect(mapStateToProps, { addCategory, addDocument })(CreateDocumentForm)
+export default connect(mapStateToProps, { addCategory, addDocument, fetchDocument })(CreateDocumentForm)

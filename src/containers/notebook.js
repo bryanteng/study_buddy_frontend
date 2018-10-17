@@ -33,6 +33,7 @@ class Notebook extends Component{
   }
 
   render(){
+    console.log(this.props.user_documents);
     return(
       <Fragment>
         {this.props.user_categories.map(category =>
@@ -46,7 +47,7 @@ class Notebook extends Component{
                 <div class="item">
                   {doc.id == this.state.current_doc ? <i class="angle right icon"></i>  : <i class="file icon"></i>}
                   <div class="content">
-                    <div class="header" id={doc.id} onClick={this.handleTitleClick}>{doc.title}</div>
+                    <div class="header" id={doc.id} onClick={this.handleTitleClick}>{doc.title}{doc.id}</div>
                   </div>
                   </div>
                 )}

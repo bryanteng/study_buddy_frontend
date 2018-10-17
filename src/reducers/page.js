@@ -26,9 +26,12 @@ export default function pageReducer(state = {document_id: 1, delta: "", user_doc
         }
 
         case 'ADD_CATEGORY':
-        return{
-          ...state,
-          user_categories: [...state.user_categories, action.payload]
+        let user_categories_names = state.user_categories.map(cat => cat.name)
+          if(!user_categories_names.includes(action.payload.name)){
+          return{...state,
+          user_categories: [...state.user_categories, action.payload]}
+        }else{
+          return state
         }
 
         case 'ADD_DOCUMENT':
