@@ -6,7 +6,6 @@ import { setUserDocuments, setDocument, setCategories } from '../actions/page'
 class Notebook extends Component{
 
   state={
-    docs:[],
     current_doc: 0
   }
 
@@ -36,9 +35,6 @@ class Notebook extends Component{
   render(){
     return(
       <Fragment>
-      <div class="ui icon buttons">
-        <button class="ui button"><i class="plus icon"></i></button>
-      </div>
         {this.props.user_categories.map(category =>
         <div class="ui list">
           <div class="item">

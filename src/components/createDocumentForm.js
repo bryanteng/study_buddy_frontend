@@ -1,13 +1,39 @@
 import React, { Component,Fragment } from 'react';
+import { connect } from 'react-redux'
+import { addCategory, addDocument } from '../actions/page'
 
 class CreateDocumentForm extends Component{
 
   state={
-    showForm: false
+    showForm: false,
+    categoryName: "",
+    documentTitle: ""
   }
 
   handleClick = () => {
     this.setState({showForm: !this.state.showForm})
+  }
+
+  handleFormSubmit = (event) =>{
+    event.preventDefault();
+
+    fetch('http://localhost:3000/documents-and-category',{
+        method: "POST",
+        headers:{
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({user_id: this.props.user_id, name: this.state.categoryName, title: this.state.documentTitle})
+      }
+    ).then(res => res.json())
+    .then(data => {
+      console.log(data)
+      // this.props.addDocument(data.document)
+      this.props.addCategory(data.category)
+    })
+  }
+
+  handleInputChange = (event) =>{
+    this.setState({[event.target.id]: event.target.value})
   }
 
   render(){
@@ -15,19 +41,14 @@ class CreateDocumentForm extends Component{
       <Fragment>
       <button class="ui button" onClick={this.handleClick}>Create a new document</button>
         {this.state.showForm ?
-          <div class="ui form success">
-          <div class="field">
+          <form onSubmit={this.handleFormSubmit}>
             <label>Category</label>
-            <input type="text" placeholder="Category name here..." />
+            <input type="text" id="categoryName" value={this.state.categoryName} onChange={this.handleInputChange} placeholder="Category name here..." />
+            <br/>
             <label>Title</label>
-            <input type="text" placeholder="Document title here..." />
-          </div>
-          <div class="ui success message">
-            <div class="header">Form Completed</div>
-            <p>You are all signed up for the newsletter.</p>
-          </div>
-          <div class="ui submit button">Submit</div>
-          </div>
+            <input type="text" id="documentTitle" value={this.state.documentTitle} onChange={this.handleInputChange} placeholder="Document title here..." />
+            <input type="submit" />
+          </form>
             :
           null
         }
@@ -39,4 +60,12 @@ class CreateDocumentForm extends Component{
 
 }
 
-export default CreateDocumentForm
+const mapStateToProps = (state) =>{
+  return{
+    user_id: state.login.user_id
+  }
+}
+
+
+
+export default connect(mapStateToProps, { addCategory, addDocument })(CreateDocumentForm)

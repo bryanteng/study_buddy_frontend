@@ -39,7 +39,6 @@ class Page extends Component {
   render(){
     return(
       <div id="editor">
-        Current doc: {this.props.document_id}
         <ReactQuill
           onChange={this.handleChange}
           defaultValue="hello world"

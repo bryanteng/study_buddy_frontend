@@ -15,5 +15,15 @@ export const setDocument = (document_id) =>({
 
 export const setCategories = (categories) => ({
   type: 'SET_CATEGORIES',
-  payload: categories 
+  payload: categories
+})
+
+export const addCategory = (category) =>({
+  type: 'ADD_CATEGORY',
+  payload: category
+})
+
+export const addDocument = (document) =>({
+  type: 'ADD_DOCUMENT',
+  payload: document
 })

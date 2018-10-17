@@ -25,6 +25,18 @@ export default function pageReducer(state = {document_id: 1, delta: "", user_doc
           user_categories: action.payload
         }
 
+        case 'ADD_CATEGORY':
+        return{
+          ...state,
+          user_categories: [...state.user_categories, action.payload]
+        }
+
+        case 'ADD_DOCUMENT':
+        return{
+          ...state,
+          user_documents: [...state.user_documents, action.payload]
+        }
+
       default:
         return state;
 
