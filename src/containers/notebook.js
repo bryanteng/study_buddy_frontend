@@ -18,7 +18,6 @@ class Notebook extends Component{
   }
 
   handleTitleClick = (event) =>{
-    console.log(event.target.id, "clicked doc")
     this.props.setDocument(event.target.id)
     this.setState({current_doc: event.target.id})
   }
@@ -33,7 +32,6 @@ class Notebook extends Component{
   }
 
   render(){
-    console.log(this.props.user_documents);
     return(
       <Fragment>
         {this.props.user_categories.map(category =>
@@ -41,7 +39,7 @@ class Notebook extends Component{
           <div class="item">
             <i class="folder icon"></i>
             <div class="content">
-              <div class="header" id={category.id} onClick={this.handleCategoryClick} >{category.name}</div>
+              <div class="header" id={category.id} onClick={this.handleCategoryClick} >{category.name}{category.id}</div>
               <div class="list">
               {this.props.user_documents.filter(document => document.category.id == category.id).map(doc =>
                 <div class="item">
@@ -63,7 +61,6 @@ class Notebook extends Component{
 }
 
 const mapStateToProps = (state) =>{
-  console.log(state, "in map state");
   return{
     user_id: state.login.user_id,
     user_documents: state.page.user_documents,
