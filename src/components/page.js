@@ -5,6 +5,7 @@ import 'react-quill/dist/quill.snow.css'; // ES6
 // Quill.register('modules/imageResize', ImageResize)
 import { connect } from 'react-redux'
 import { setDelta } from '../actions/page'
+import { addNotecard } from '../actions/notecard'
 
 class Page extends Component {
 
@@ -25,7 +26,7 @@ class Page extends Component {
   componentDidMount(){
     fetch(`http://localhost:3000/documents/${this.props.document_id}`)
     .then(res=> res.json())
-    .then(data => this.props.setDelta(data.delta))
+    .then(data => this.props.setDelta({}))
   }
 
   componentDidUpdate(prevProps){
@@ -36,10 +37,17 @@ class Page extends Component {
     }
   }
 
+  handleSelectionClick = () =>{
+    console.log(window.getSelection().toString())
+    this.props.addNotecard(window.getSelection().toString())
+  }
+
   render(){
     return(
-      <div id="editor">
-        <ReactQuill
+      <div class="container" id="editor">
+        <button onClick={this.handleSelectionClick}>Press me after highlighting text to make a notecard!</button>
+        <ReactQuill class="editor"
+          theme={"snow"}
           onChange={this.handleChange}
           defaultValue="hello world"
           value={this.props.delta}
@@ -52,22 +60,16 @@ class Page extends Component {
 
 }
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
     user_id: state.login.user_id,
     document_id: state.page.document_id,
-    delta: state.page.delta
+    delta: state.page.delta,
+    notecards: state.notecard.notecards
   }
 }
 
-const mapDispatchToProps = (dispatch) =>{
-  return{
-    setDelta: (delta) =>{
-      dispatch(setDelta(delta))
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Page)
+export default connect(mapStateToProps, { setDelta, addNotecard })(Page)
 
 Page.modules = {
   toolbar: [
@@ -86,15 +88,14 @@ Page.modules = {
     [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
     [{ 'font': [] }],
     [{ 'align': [] }],
-
     ['clean']
   ],
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
-    matchVisual: false,
+    matchVisual: false
   //   imageDrop: true,
   // imageResize: {}
-  }
+}
 }
 Page.formats = [
   'header', 'font', 'size',

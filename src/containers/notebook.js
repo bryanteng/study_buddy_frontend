@@ -33,29 +33,36 @@ class Notebook extends Component{
 
   render(){
     return(
-      <Fragment>
+      <div class="ui grid">
+        <div class='three wide column'>
         {this.props.user_categories.map(category =>
         <div class="ui list">
           <div class="item">
             <i class="folder icon"></i>
             <div class="content">
-              <div class="header" id={category.id} onClick={this.handleCategoryClick} >{category.name}{category.id}</div>
+              <div class="header" id={category.id} onClick={this.handleCategoryClick} >{category.name} {category.id}</div>
               <div class="list">
               {this.props.user_documents.filter(document => document.category.id == category.id).map(doc =>
                 <div class="item">
                   {doc.id == this.state.current_doc ? <i class="angle right icon"></i>  : <i class="file icon"></i>}
                   <div class="content">
-                    <div class="header" id={doc.id} onClick={this.handleTitleClick}>{doc.title}{doc.id}</div>
+                    <div class="header" id={doc.id} onClick={this.handleTitleClick}>{doc.title} {doc.id}</div>
                   </div>
                   </div>
                 )}
+
               </div>
             </div>
           </div>
         </div>
       )}
-        <Page />
-      </Fragment>
+      </div>
+      <div class='stretched twelve wide column'>
+      <div class='ui segment'>
+            <Page />
+          </div>
+        </div>
+      </div>
     )
   }
 }

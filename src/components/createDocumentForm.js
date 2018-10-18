@@ -19,7 +19,7 @@ class CreateDocumentForm extends Component{
     event.preventDefault();
 
     this.props.fetchDocument(this.props.user_id, this.state.categoryName, this.state.documentTitle)
-
+    this.setState({categoryName: "", documentTitle: ""})
   }
 
   handleInputChange = (event) =>{
