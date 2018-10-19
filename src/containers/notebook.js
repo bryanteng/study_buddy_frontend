@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import Page from '../components/page'
+import CreateDocumentForm from '../components/createDocumentForm'
 import { connect } from 'react-redux'
 import { setUserDocuments, setDocument, setCategories } from '../actions/page'
 
@@ -59,6 +60,7 @@ class Notebook extends Component{
       </div>
       <div class='stretched twelve wide column'>
       <div class='ui segment'>
+            <CreateDocumentForm />
             <Page />
           </div>
         </div>

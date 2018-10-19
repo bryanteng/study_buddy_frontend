@@ -6,6 +6,7 @@ class Notecards extends Component{
   render(){
     return(
       <Fragment>
+      "this is notecards"
         {this.props.notecards ? this.props.notecards.map(card => <div>{card}</div>) : null}
       </Fragment>
     )

@@ -18,7 +18,7 @@ class CreateDocumentForm extends Component{
   handleFormSubmit = (event) =>{
     event.preventDefault();
 
-    this.props.fetchDocument(this.props.user_id, this.state.categoryName, this.state.documentTitle)
+    this.props.fetchDocument(this.props.user_id, this.state.categoryName.trim(), this.state.documentTitle.trim())
     this.setState({categoryName: "", documentTitle: ""})
   }
 
@@ -29,7 +29,7 @@ class CreateDocumentForm extends Component{
   render(){
     return(
       <Fragment>
-      <button class="ui button" onClick={this.handleClick}>Create a new document</button>
+      <button class="ui button" onClick={this.handleClick}>{this.state.showForm ? "Close document form" : "Create a new document"}</button>
         {this.state.showForm ?
           <form onSubmit={this.handleFormSubmit}>
             <label>Category</label>
