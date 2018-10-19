@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import Page from '../components/page'
 import CreateDocumentForm from '../components/createDocumentForm'
 import { connect } from 'react-redux'
