@@ -10,15 +10,21 @@ class Notecard extends Component{
       verticalAlign: 'center',
       justifyContent: 'center'
     }
+
+    // const spanStyle={
+    //   position: "relative";
+    //   top: 50%;
+    //   transform: translateY(-50%);
+    // }
     return(
       <Fragment>
         {deck ? deck.map(card =>
           <div className="ui small fade reveal image" >
             <div class="ui segment visible content" style={divStyle} >
-              <span >{card.front}</span>
+              <span className="cardSpan">{card.front}</span>
             </div>
             <div class="ui segment hidden content" style={divStyle}>
-              <span >{card.back}</span>
+              <span className="cardSpan">{card.back}</span>
             </div>
           </div>
 

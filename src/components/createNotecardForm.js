@@ -8,7 +8,6 @@ class createNotecardForm extends Component{
 
   constructor(props){
     super(props)
-    console.log(props, "constructor");
     this.state={
       categoryName: "",
       subcategoryName: "",
@@ -32,7 +31,6 @@ class createNotecardForm extends Component{
     ).then(res=> res.json())
     .then(data => this.props.addNotecard(data))
 
-    // this.props.fetchDocument(this.props.user_id, this.state.categoryName.trim(), this.state.subcategoryName.trim())
     this.setState({front: "", back: ""})
   }
 
@@ -41,23 +39,19 @@ class createNotecardForm extends Component{
   }
 
   populateCategoryClick = () =>{
-    console.log("hi");
     this.setState({categoryName: this.props.category})
   }
 
   populateBackClick = () =>{
-    console.log("hi");
     this.setState({back:window.getSelection().toString()})
   }
 
   populateFrontClick = () =>{
-    console.log("hi");
     this.setState({front:window.getSelection().toString()})
   }
 
 
   render(){
-    console.log(this.state, "state of notecard");
     return(
         <Popup trigger={<button className="ui button"> Create Notecard Form </button>} modal>
           {close => (

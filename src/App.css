@@ -48,3 +48,9 @@
     transform: rotate(360deg);
   }
 }
+
+.cardSpan{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
