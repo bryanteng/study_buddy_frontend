@@ -10,11 +10,17 @@ class Notebook extends Component{
 
   state={
     current_doc: 0,
+    current_category: 0
   }
 
   //change this function to toggle the list dropdown
   handleCategoryClick = (event) => {
-    console.log(event.target.id)
+    let catID = event.target.id
+    if (this.state.current_category === catID){
+      this.setState({current_category: 0})
+    }else{
+    this.setState({current_category: catID})
+    }
     // this.props.setDocument(event.target.id)
     // const category_docs = this.props.user_documents.filter(document => document.category.id == event.target.id)
     // this.setState({docs: category_docs})
@@ -36,6 +42,7 @@ class Notebook extends Component{
   }
 
   render(){
+    console.log(this.state, "state of notebook");
     return(
       <div class="ui grid">
         <div class='three wide column'>
@@ -44,16 +51,16 @@ class Notebook extends Component{
           <div class="item">
             <i class="folder icon"></i>
             <div class="content">
-              <div class="header" id={category.id} onClick={this.handleCategoryClick} >{category.name} {category.id}</div>
+              <div class="header" id={category.id} onClick={this.handleCategoryClick} >{category.name}</div>
               <div class="list">
-              {this.props.user_documents.filter(document => document.category.id == category.id).map(doc =>
+              {this.state.current_category == category.id ? this.props.user_documents.filter(document => document.category.id == category.id).map(doc =>
                 <div class="item">
                   {doc.id == this.state.current_doc ? <i class="angle right icon"></i>  : <i class="file icon"></i>}
                   <div class="content">
-                    <div class="header" id={doc.id} title={doc.title} onClick={this.handleTitleClick}>{doc.title} {doc.id}</div>
+                    <div class="header" id={doc.id} title={doc.title} onClick={this.handleTitleClick}>{doc.title}</div>
                   </div>
                   </div>
-                )}
+                ) : null}
 
               </div>
             </div>

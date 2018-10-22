@@ -11,11 +11,6 @@ class Notecard extends Component{
       justifyContent: 'center'
     }
 
-    // const spanStyle={
-    //   position: "relative";
-    //   top: 50%;
-    //   transform: translateY(-50%);
-    // }
     return(
       <Fragment>
         {deck ? deck.map(card =>
@@ -33,7 +28,5 @@ class Notecard extends Component{
     )
   }
 }
-
-
 
 export default connect(null,null)(Notecard)
