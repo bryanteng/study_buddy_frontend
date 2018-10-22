@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import Page from '../components/page'
 import CreateDocumentForm from '../components/createDocumentForm'
+import CreateNotecardForm from '../components/createNotecardForm'
 import { connect } from 'react-redux'
 import { setUserDocuments, setDocument, setCategories } from '../actions/page'
+import { changeCategory } from '../actions/create_notecard_form'
 
 class Notebook extends Component{
 
   state={
-    current_doc: 0
+    current_doc: 0,
   }
 
   //change this function to toggle the list dropdown
@@ -20,6 +22,7 @@ class Notebook extends Component{
 
   handleTitleClick = (event) =>{
     this.props.setDocument(event.target.id)
+    this.props.changeCategory(event.target.title)
     this.setState({current_doc: event.target.id})
   }
 
@@ -47,7 +50,7 @@ class Notebook extends Component{
                 <div class="item">
                   {doc.id == this.state.current_doc ? <i class="angle right icon"></i>  : <i class="file icon"></i>}
                   <div class="content">
-                    <div class="header" id={doc.id} onClick={this.handleTitleClick}>{doc.title} {doc.id}</div>
+                    <div class="header" id={doc.id} title={doc.title} onClick={this.handleTitleClick}>{doc.title} {doc.id}</div>
                   </div>
                   </div>
                 )}
@@ -61,12 +64,14 @@ class Notebook extends Component{
       <div class='stretched twelve wide column'>
       <div class='ui segment'>
             <CreateDocumentForm />
+            <CreateNotecardForm />
             <Page />
           </div>
         </div>
       </div>
     )
   }
+
 }
 
 const mapStateToProps = (state) =>{
@@ -77,4 +82,4 @@ const mapStateToProps = (state) =>{
   }
 }
 
-export default connect(mapStateToProps, {setUserDocuments, setDocument, setCategories})(Notebook)
+export default connect(mapStateToProps, {setUserDocuments, setDocument, setCategories, changeCategory })(Notebook)

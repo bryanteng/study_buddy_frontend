@@ -38,7 +38,6 @@ class Page extends Component {
   }
 
   handleSelectionClick = () =>{
-    console.log(window.getSelection().toString())
     this.props.addNotecard(window.getSelection().toString())
   }
 
