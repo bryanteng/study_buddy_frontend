@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Page from '../components/page'
 import CreateDocumentForm from '../components/createDocumentForm'
 import CreateNotecardForm from '../components/createNotecardForm'
+import CreateGraphForm from '../components/createGraphForm'
 import { connect } from 'react-redux'
 import { setUserDocuments, setDocument, setCategories } from '../actions/page'
 import { changeCategory } from '../actions/create_notecard_form'
@@ -13,7 +14,6 @@ class Notebook extends Component{
     current_category: 0
   }
 
-  //change this function to toggle the list dropdown
   handleCategoryClick = (event) => {
     let catID = event.target.id
     if (this.state.current_category === catID){
@@ -21,9 +21,6 @@ class Notebook extends Component{
     }else{
     this.setState({current_category: catID})
     }
-    // this.props.setDocument(event.target.id)
-    // const category_docs = this.props.user_documents.filter(document => document.category.id == event.target.id)
-    // this.setState({docs: category_docs})
   }
 
   handleTitleClick = (event) =>{
@@ -42,11 +39,10 @@ class Notebook extends Component{
   }
 
   render(){
-    console.log(this.state, "state of notebook");
     return(
       <div class="ui grid">
         <div class='three wide column'>
-        {this.props.user_categories.map(category =>
+        {this.props.user_documents ? this.props.user_categories.map(category =>
         <div class="ui list">
           <div class="item">
             <i class="folder icon"></i>
@@ -66,12 +62,15 @@ class Notebook extends Component{
             </div>
           </div>
         </div>
-      )}
+      ) : null}
       </div>
       <div class='stretched twelve wide column'>
       <div class='ui segment'>
             <CreateDocumentForm />
             <CreateNotecardForm />
+            <CreateGraphForm />
+            <br/>
+            <br/>
             <Page />
           </div>
         </div>

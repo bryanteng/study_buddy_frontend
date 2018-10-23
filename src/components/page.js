@@ -44,7 +44,6 @@ class Page extends Component {
   render(){
     return(
       <div class="container" id="editor">
-        <button onClick={this.handleSelectionClick}>Press me after highlighting text to make a notecard!</button>
         <ReactQuill class="editor"
           theme={"snow"}
           onChange={this.handleChange}
