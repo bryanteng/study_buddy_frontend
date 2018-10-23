@@ -5,11 +5,10 @@ import 'react-quill/dist/quill.snow.css'; // ES6
 // Quill.register('modules/imageResize', ImageResize)
 import { connect } from 'react-redux'
 import { setDelta } from '../actions/page'
-import { addNotecard } from '../actions/notecard'
 
 class Page extends Component {
 
-  handleChange = (content, delta, source, editor) => {
+  handleBlur = (previousRange, source, editor) => {
     if (source === "user"){
     fetch(`http://localhost:3000/documents/${this.props.document_id}`,{
       method: "PATCH",
@@ -18,8 +17,7 @@ class Page extends Component {
         },
         body: JSON.stringify({delta: editor.getContents().ops})
       }
-    ).then(res => res.json())
-    .then(data => this.props.setDelta(data.delta))
+      )
     }
   }
 
@@ -37,16 +35,12 @@ class Page extends Component {
     }
   }
 
-  handleSelectionClick = () =>{
-    this.props.addNotecard(window.getSelection().toString())
-  }
-
   render(){
     return(
-      <div class="container" id="editor">
+      <div class="container" id="editor" >
         <ReactQuill class="editor"
           theme={"snow"}
-          onChange={this.handleChange}
+          onBlur={this.handleBlur}
           defaultValue="hello world"
           value={this.props.delta}
           modules={Page.modules}
@@ -55,19 +49,17 @@ class Page extends Component {
       </div>
     )
   }
-
 }
+
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     user_id: state.login.user_id,
     document_id: state.page.document_id,
     delta: state.page.delta,
-    notecards: state.notecard.notecards
   }
 }
 
-export default connect(mapStateToProps, { setDelta, addNotecard })(Page)
+export default connect(mapStateToProps, { setDelta })(Page)
 
 Page.modules = {
   toolbar: [
@@ -93,7 +85,7 @@ Page.modules = {
     matchVisual: false
   //   imageDrop: true,
   // imageResize: {}
-}
+  }
 }
 Page.formats = [
   'header', 'font', 'size',
