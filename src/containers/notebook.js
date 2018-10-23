@@ -51,7 +51,7 @@ class Notebook extends Component{
               <div class="list">
               {this.state.current_category == category.id ? this.props.user_documents.filter(document => document.category.id == category.id).map(doc =>
                 <div class="item">
-                  {doc.id == this.state.current_doc ? <i class="angle right icon"></i>  : <i class="file icon"></i>}
+                  {doc.id == this.state.current_doc ? <i class="angle right icon"></i> : <i class="file icon"></i>}
                   <div class="content">
                     <div class="header" id={doc.id} title={doc.title} onClick={this.handleTitleClick}>{doc.title}</div>
                   </div>
