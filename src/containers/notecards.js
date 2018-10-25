@@ -117,6 +117,7 @@ class Notecards extends Component{
 }
 
 const mapStateToProps = (state) =>{
+  console.log(state);
   return{
     user_id: state.login.user_id,
     notecards: state.notecard.notecards,

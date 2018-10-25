@@ -30,8 +30,8 @@ class createNotecardForm extends Component{
       }
     ).then(res=> res.json())
     .then(data => {
-      this.props.addNotecardCategory(data.category)
-      this.props.addNotecardSubcategory(data.subcategory)
+      this.props.addNotecardCategory(data.category.name)
+      this.props.addNotecardSubcategory(data.subcategory.name)
       this.props.addNotecard(data)
     })
 

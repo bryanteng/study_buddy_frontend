@@ -20,6 +20,8 @@ export default class Navbar extends Component{
       alert("lol jk")
     }else if (this.state.logoutClicks === 20) {
       alert("keep goin'")
+    }else if (this.state.logoutClicks === 100) {
+      alert("seriously though almost there")
     }
   }
 
