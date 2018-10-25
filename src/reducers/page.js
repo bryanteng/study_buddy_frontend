@@ -1,10 +1,13 @@
-export default function pageReducer(state = {document_id: 1, delta: "", user_documents: [], user_categories: []}, action){
+export default function pageReducer(state = {document_id: 0, delta: "", user_documents: [], user_categories: []}, action){
     switch (action.type) {
 
       case 'SET_DELTA':
+      let found_delta
+      let doc_found = state.user_documents.find(document => document.id === action.payload)
+      found_delta = doc_found.delta
         return {
           ...state,
-          delta: action.payload
+          delta: found_delta
         }
 
         case 'SET_USER_DOCUMENTS':
@@ -38,6 +41,13 @@ export default function pageReducer(state = {document_id: 1, delta: "", user_doc
         return{
           ...state,
           user_documents: [...state.user_documents, action.payload]
+        }
+
+        case 'REMOVE_DOCUMENT':
+        let updated_documents = state.user_documents.filter(document => document.id !== action.payload)
+        return{
+          ...state,
+          user_documents: updated_documents
         }
 
       default:

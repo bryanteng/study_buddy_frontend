@@ -21,19 +21,19 @@ class Page extends Component {
     }
   }
 
-  componentDidMount(){
-    fetch(`http://localhost:3000/documents/${this.props.document_id}`)
-    .then(res=> res.json())
-    .then(data => this.props.setDelta({}))
-  }
+  // componentDidMount(){
+  //   fetch(`http://localhost:3000/documents/${this.props.document_id}`)
+  //   .then(res=> res.json())
+  //   .then(data => this.props.setDelta({}))
+  // }
 
-  componentDidUpdate(prevProps){
-    if(this.props.document_id !== prevProps.document_id){
-      fetch(`http://localhost:3000/documents/${this.props.document_id}`)
-      .then(res=> res.json())
-      .then(data => this.props.setDelta(data.delta))
-    }
-  }
+  // componentDidUpdate(prevProps){
+  //   if(this.props.document_id !== prevProps.document_id){
+  //     fetch(`http://localhost:3000/documents/${this.props.document_id}`)
+  //     .then(res=> res.json())
+  //     .then(data => this.props.setDelta(this.props.document_id))
+  //   }
+  // }
 
   render(){
     return(
@@ -74,7 +74,7 @@ Page.modules = {
 
     [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
     [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-    [ 'link', 'image', 'video', 'formula' ],          // add's image support
+    [ 'link', 'image', 'video' ],          // add's image support
     [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
     [{ 'font': [] }],
     [{ 'align': [] }],
@@ -89,7 +89,7 @@ Page.modules = {
 }
 Page.formats = [
   'header', 'font', 'size',
-  'bold', 'italic', 'underline', 'strike', 'blockquote',
-  'list', 'bullet', 'indent',
-  'link', 'image', 'video'
+  'bold', 'italic', 'underline', 'strike', 'blockquote','code-block',
+  'list', 'bullet', 'indent', 'sub','super','rtl',
+  'link', 'image', 'video', 'color','background','align','clean'
 ]

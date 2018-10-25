@@ -4,8 +4,10 @@ import CreateDocumentForm from '../components/createDocumentForm'
 import CreateNotecardForm from '../components/createNotecardForm'
 import CreateGraphForm from '../components/createGraphForm'
 import { connect } from 'react-redux'
-import { setUserDocuments, setDocument, setCategories } from '../actions/page'
+import { setUserDocuments, setDelta, setDocument, setCategories, removeDocument } from '../actions/page'
 import { changeCategory } from '../actions/create_notecard_form'
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 class Notebook extends Component{
 
@@ -26,7 +28,36 @@ class Notebook extends Component{
   handleTitleClick = (event) =>{
     this.props.setDocument(event.target.id)
     this.props.changeCategory(event.target.title)
+    this.props.setDelta(parseInt(event.target.id, 10))
     this.setState({current_doc: event.target.id})
+  }
+
+  handleDeleteClick = (event) => {
+    let doc_id = event.target.id
+    confirmAlert({
+      title: 'Click Yes to confirm',
+      message: 'Are you sure you want to delete this document?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            fetch(`http://localhost:3000/documents/${doc_id}`,{
+              method: "DELETE"
+            }).then(res=> {
+            if (res.ok) {
+              this.props.removeDocument(parseInt(doc_id, 10))
+            } else {
+              return Promise.reject({ status: res.status, statusText: res.statusText });
+            }
+          })
+          }
+        },
+        {
+          label: 'No',
+          onClick: () => null
+        }
+      ]
+    })
   }
 
   componentDidMount(){
@@ -39,13 +70,23 @@ class Notebook extends Component{
   }
 
   render(){
+    const styles1 = {
+      margin: '20px'
+    }
+    const styles2 ={
+      display: 'flex'
+    }
+    const styles3 ={
+      paddingLeft: '25px',
+      display: 'flex'
+    }
     return(
       <div class="ui grid">
         <div class='three wide column'>
         {this.props.user_documents ? this.props.user_categories.map(category =>
-        <div class="ui list">
+        <div class="ui list" style={styles1}>
           <div class="item">
-            <i class="folder icon"></i>
+            {parseInt(this.state.current_category,10) === category.id ? <i class="folder open icon"></i> : <i class="folder icon"></i> }
             <div class="content">
               <div class="header" id={category.id} onClick={this.handleCategoryClick} >{category.name}</div>
               <div class="list">
@@ -53,7 +94,13 @@ class Notebook extends Component{
                 <div class="item">
                   {doc.id == this.state.current_doc ? <i class="angle right icon"></i> : <i class="file icon"></i>}
                   <div class="content">
+
+                    <div style={styles2}>
                     <div class="header" id={doc.id} title={doc.title} onClick={this.handleTitleClick}>{doc.title}</div>
+                    <button class="ui mini inverted icon button" style={styles3} id={doc.id} onClick={this.handleDeleteClick}><i class="trash icon"></i>
+                    </button>
+                    </div>
+
                   </div>
                   </div>
                 ) : null}
@@ -71,7 +118,7 @@ class Notebook extends Component{
             <CreateGraphForm />
             <br/>
             <br/>
-            <Page />
+            {this.state.current_doc ? <Page /> : null }
           </div>
         </div>
       </div>
@@ -88,4 +135,4 @@ const mapStateToProps = (state) =>{
   }
 }
 
-export default connect(mapStateToProps, {setUserDocuments, setDocument, setCategories, changeCategory })(Notebook)
+export default connect(mapStateToProps, {setUserDocuments, setDelta, setDocument, setCategories, changeCategory, removeDocument })(Notebook)

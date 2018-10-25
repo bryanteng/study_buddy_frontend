@@ -1,6 +1,6 @@
-export const setDelta = (delta) => ({
+export const setDelta = (id) => ({
   type: 'SET_DELTA',
-  payload: delta
+  payload: id
 })
 
 export const setUserDocuments = (documents) =>({
@@ -26,4 +26,9 @@ export const addCategory = (category) =>({
 export const addDocument = (document) =>({
   type: 'ADD_DOCUMENT',
   payload: document
+})
+
+export const removeDocument = (id) => ({
+  type: 'REMOVE_DOCUMENT',
+  payload: id
 })

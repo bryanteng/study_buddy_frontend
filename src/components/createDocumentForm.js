@@ -26,7 +26,7 @@ class CreateDocumentForm extends Component{
     return(
         <Popup trigger={<button className="ui button"> Create Document Form </button>} modal>
           {close => (
-            <div className="modal">
+            <div className="ui red segment">
               <div className="header"> Create Document Form </div>
               <div className="content">
                 <form class="ui form" onSubmit={this.handleFormSubmit}>

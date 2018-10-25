@@ -9,7 +9,10 @@ class createGraphForm extends Component{
     x: [],
     y: [],
     type: "",
-    color: ""
+    color: "",
+    x_lowerbound: 0,
+    x_upperbound: 0,
+    increment: 0
   }
 
   handleFormSubmit = (event) =>{
@@ -22,29 +25,56 @@ class createGraphForm extends Component{
   }
 
   draw = () =>{
+    // catch errors
     const compiled = math.compile(this.state.equation)
-    const xValues = math.range(-10, 10, 0.5).toArray()
+    const xValues = math.range(this.state.x_lowerbound, this.state.x_upperbound, this.state.increment).toArray()
     const yValues = xValues.map(x => compiled.eval({x: x}))
     this.setState({x: xValues, y: yValues, mode: 'lines+points', marker: {color: 'red'} })
   }
 
+  handleTypeClick =(event) =>{
+    this.setState({type:event.target.id })
+  }
+
   render(){
     return(
-      <Popup trigger={<button className="ui button"> A button from createGraphForm </button>} modal>
+      <Popup trigger={<button className="ui button"> Create Graph Form </button>} modal>
         {close => (
-          <div className="modal">
+          <div className="ui red segment">
             <div className="header"> Create Graph Form </div>
             <div className="content">
               <form class="ui form" onSubmit={this.handleFormSubmit}>
-              <label>Enter graph Equation here</label>
+              <label>Enter Equation here</label>
               <input type="text" id="equation" onChange={this.handleInputChange}/>
-              <label>Enter graph type here</label>
-              <input type="text" id="type" onChange={this.handleInputChange}/>
+
+                <label>Enter lowerbound X here</label>
+                <input type="text" id="x_lowerbound" onChange={this.handleInputChange}/>
+
+                <label>Enter upperbound X here</label>
+                <input type="text" id="x_upperbound" onChange={this.handleInputChange}/>
+
+                <label>Enter increment by here</label>
+                <input type="text" id="increment" onChange={this.handleInputChange}/>
+
+                <div class="ui compact menu">
+                <div class="ui simple dropdown item">
+                  {this.state.type ? this.state.type : "Pick a chart type" }
+                  <i class="dropdown icon"></i>
+                  <div class="menu" >
+                    <div class="item" id="scatter" onClick={this.handleTypeClick}>scatter</div>
+                    <div class="item" id="bar" onClick={this.handleTypeClick} >bar</div>
+                  </div>
+                </div>
+              </div>
+              <br/>
+
               <label>Enter color here</label>
               <input type="text" id="color" onChange={this.handleInputChange}/>
-                  <button class="ui button" type="submit">Submit</button>
+              <br/>
+              <br/>
+                  <button class="ui positive basic button" type="submit">Submit</button>
                   <button
-                    className="ui button"
+                    className="ui negative basic button"
                     onClick={() => {
                       console.log('modal closed ')
                       close()
@@ -54,14 +84,14 @@ class createGraphForm extends Component{
                   </button>
               </form>
               <Plot data={[
-                      {
-                        x: this.state.x,
-                        y: this.state.y,
-                        type: this.state.type,
-                        mode: 'lines+points',
-                        marker: {color: this.state.color},
-                      }
-                    ]}/>
+                    {
+                      x: this.state.x,
+                      y: this.state.y,
+                      type: this.state.type,
+                      mode: 'lines+points',
+                      marker: {color: this.state.color},
+                    }
+                  ]}/>
             </div>
           </div>
         )}

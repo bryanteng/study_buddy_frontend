@@ -1,32 +1,27 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
 
 class Notecard extends Component{
   render(){
     const deck = this.props.deck
     const divStyle={
       height: '300px',
-      width: '500px',
-      verticalAlign: 'center',
-      justifyContent: 'center'
-    }
-
+      width: '500px'
+      }
     return(
-      <Fragment>
+      <div className='card' >
         {deck ? deck.map(card =>
-          <div className="ui small fade reveal image" >
-            <div class="ui segment visible content" style={divStyle} >
+          <div className="ui small fade reveal image">
+            <div class="ui yellow inverted segment visible content" style={divStyle} >
               <span className="cardSpan">{card.front}</span>
             </div>
-            <div class="ui segment hidden content" style={divStyle}>
+            <div class="ui orange inverted segment hidden content" style={divStyle}>
               <span className="cardSpan">{card.back}</span>
             </div>
           </div>
-
         ) : null }
-      </Fragment>
+      </div>
     )
   }
 }
 
-export default connect(null,null)(Notecard)
+export default Notecard
