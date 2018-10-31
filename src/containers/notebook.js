@@ -81,7 +81,6 @@ class Notebook extends Component{
   }
 
   render(){
-    console.log(this.props, "in nb");
     const styles1 = {
       margin: '20px'
     }

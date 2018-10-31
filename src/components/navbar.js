@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import {Link} from 'react-router-dom'
+import { connect } from 'react-redux'
 
-export default class Navbar extends Component{
+class Navbar extends Component{
 
   render(){
     const loggedIn = !!this.props.userId
@@ -11,7 +12,7 @@ export default class Navbar extends Component{
 
       <div class="ui menu">
         <div class="header item">
-          //
+          {this.props.username ? `${this.props.username}'s Study Buddy` : "//"}
         </div>
         <a class="item">
           <Link to="/notebook">Notebook</Link>
@@ -29,3 +30,11 @@ export default class Navbar extends Component{
     )
   }
 }
+
+const mapStateToProps = (state) =>{
+  return{
+    username: state.login.username,
+  }
+}
+
+export default connect(mapStateToProps,null)(Navbar)

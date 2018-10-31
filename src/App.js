@@ -6,7 +6,7 @@ import Notecards from './containers/notecards'
 import Login from './components/login'
 import { connect } from 'react-redux'
 import UserAdapter from './adapters/UserAdapter'
-import { setUserId } from './actions/login'
+import { setUserId, setUsername } from './actions/login'
 import { setUserDocuments, setCategories } from './actions/page'
 
 
@@ -20,6 +20,7 @@ class App extends Component {
       .then(resp => {
         if(!resp.error){
           this.props.setUserId(resp.user.user_id)
+          this.props.setUsername(resp.user.username)
         }
         else{
           this.logout()
@@ -31,6 +32,7 @@ class App extends Component {
   logout = () => {
     localStorage.clear()
     this.props.setUserId(0)
+    this.props.setUsername("")
   }
 
     render() {
@@ -56,4 +58,4 @@ const mapStateToProps = (state) =>{
   }
 }
 
-export default connect(mapStateToProps, { setUserId, setUserDocuments, setCategories })(App)
+export default connect(mapStateToProps, { setUserId, setUserDocuments, setCategories, setUsername })(App)
