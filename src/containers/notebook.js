@@ -69,7 +69,19 @@ class Notebook extends Component{
     })
   }
 
+  componentDidUpdate(prevProps){
+    if(this.props.user_id !== prevProps.user_id){
+      fetch(`http://localhost:3000/users/${this.props.user_id}`)
+      .then(res=> res.json())
+      .then(data => {
+        this.props.setUserDocuments(data.documents)
+        this.props.setCategories(data.uniq_categories)
+      })
+    }
+  }
+
   render(){
+    console.log(this.props, "in nb");
     const styles1 = {
       margin: '20px'
     }
@@ -83,7 +95,7 @@ class Notebook extends Component{
     return(
       <div class="ui grid">
         <div class='three wide column'>
-        {this.props.user_documents ? this.props.user_categories.map(category =>
+        {this.props.user_documents && this.props.user_categories ? this.props.user_categories.map(category =>
         <div class="ui list" style={styles1}>
           <div class="item">
             {parseInt(this.state.current_category,10) === category.id ? <i class="folder open icon"></i> : <i class="folder icon"></i> }

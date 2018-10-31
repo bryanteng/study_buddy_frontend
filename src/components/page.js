@@ -21,20 +21,6 @@ class Page extends Component {
     }
   }
 
-  // componentDidMount(){
-  //   fetch(`http://localhost:3000/documents/${this.props.document_id}`)
-  //   .then(res=> res.json())
-  //   .then(data => this.props.setDelta({}))
-  // }
-
-  // componentDidUpdate(prevProps){
-  //   if(this.props.document_id !== prevProps.document_id){
-  //     fetch(`http://localhost:3000/documents/${this.props.document_id}`)
-  //     .then(res=> res.json())
-  //     .then(data => this.props.setDelta(this.props.document_id))
-  //   }
-  // }
-
   render(){
     return(
       <div class="container" id="editor" >

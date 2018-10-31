@@ -74,7 +74,7 @@ class Notecards extends Component{
     return(
       <div class="ui grid">
         <div class='three wide column'>
-        {noteCards ? this.props.notecard_categories.map(category =>
+        {noteCards && this.props.notecard_categories ? this.props.notecard_categories.map(category =>
         <div class="ui list" style={styles1}>
           <div class="item">
             <i class="folder icon"></i>
