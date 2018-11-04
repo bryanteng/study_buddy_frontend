@@ -32,3 +32,8 @@ export const removeDocument = (id) => ({
   type: 'REMOVE_DOCUMENT',
   payload: id
 })
+
+export const changeDelta = (doc_id_and_delta) => ({
+  type: 'CHANGE_DELTA',
+  payload: doc_id_and_delta
+})

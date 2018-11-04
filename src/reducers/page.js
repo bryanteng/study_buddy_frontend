@@ -10,6 +10,23 @@ export default function pageReducer(state = {document_id: 0, delta: "", user_doc
           delta: found_delta
         }
 
+        case 'CHANGE_DELTA':
+        let doc_id = action.payload.id
+        console.log(state.user_documents,"docs before change");
+        let updated_user_documents = state.user_documents.map(document => {
+          if (document.id == doc_id){
+            document.delta = action.payload.delta
+            return document
+          }else{
+            return document
+          }
+        })
+        console.log(updated_user_documents,"this is updated ");
+        return {
+          ...state,
+          user_documents: updated_user_documents
+        }
+
         case 'SET_USER_DOCUMENTS':
         return{
           ...state,

@@ -4,7 +4,7 @@ import 'react-quill/dist/quill.snow.css'; // ES6
 // import ImageResize from 'quill-image-resize-module';
 // Quill.register('modules/imageResize', ImageResize)
 import { connect } from 'react-redux'
-import { setDelta } from '../actions/page'
+import { setDelta, changeDelta } from '../actions/page'
 
 class Page extends Component {
 
@@ -17,7 +17,23 @@ class Page extends Component {
         },
         body: JSON.stringify({delta: editor.getContents().ops})
       }
-      )
+    ).then(res=> res.json())
+    .then(data => this.props.changeDelta({id: data.id, delta: data.delta}))
+    }
+  }
+
+  componentDidMount(){
+    fetch(`http://localhost:3000/documents/${this.props.document_id}`)
+    .then(res=> res.json())
+    .then(data => this.props.setDelta(data.id))
+  }
+
+  componentDidUpdate(prevProps){
+
+    if(this.props.document_id !== prevProps.document_id){
+      fetch(`http://localhost:3000/documents/${this.props.document_id}`)
+      .then(res=> res.json())
+      .then(data => this.props.setDelta(data.id))
     }
   }
 
@@ -45,7 +61,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { setDelta })(Page)
+export default connect(mapStateToProps, { setDelta, changeDelta })(Page)
 
 Page.modules = {
   toolbar: [
