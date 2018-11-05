@@ -12,7 +12,7 @@ class Notecards extends Component{
   }
 
   componentDidMount(){
-    fetch(`http://localhost:3000/users/${this.props.user_id}`)
+    fetch(`https://warm-wave-64099.herokuapp.com/users/${this.props.user_id}`)
     .then(res=> res.json())
     .then(data => {
       this.props.setNotecards(data.notecards)
@@ -33,7 +33,6 @@ class Notecards extends Component{
   }
 
   handleNotecardDelete = (event) =>{
-    console.log(event.target.id);
     let notecard_id = event.target.id
     confirmAlert({
       title: 'Click Yes to confirm',
@@ -42,7 +41,7 @@ class Notecards extends Component{
         {
           label: 'Yes',
           onClick: () => {
-            fetch(`http://localhost:3000/notecards/${notecard_id}`,{
+            fetch(`https://warm-wave-64099.herokuapp.com/notecards/${notecard_id}`,{
               method: "DELETE"
             }).then(res=> {
             if (res.ok) {
@@ -117,7 +116,6 @@ class Notecards extends Component{
 }
 
 const mapStateToProps = (state) =>{
-  console.log(state);
   return{
     user_id: state.login.user_id,
     notecards: state.notecard.notecards,
