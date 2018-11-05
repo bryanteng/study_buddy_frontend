@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "express": "^4.16.4",
     "katex": "^0.10.0-rc.1",
     "mathjs": "^5.2.1",
     "plotly.js": "^1.41.3",
@@ -27,9 +28,9 @@
   "eslintConfig": {
     "extends": "react-app"
   },
- "engines": {
-      "node": "10.11.0",
-      "npm": "6.4.1"
+  "engines": {
+    "node": "10.11.0",
+    "npm": "6.4.1"
   },
   "browserslist": [
     ">0.2%",
