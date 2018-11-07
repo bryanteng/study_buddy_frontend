@@ -10,7 +10,7 @@ class Page extends Component {
 
   handleBlur = (previousRange, source, editor) => {
     if (source === "user"){
-    fetch(`https://warm-wave-64099.herokuapp.com/documents/${this.props.document_id}`,{
+    fetch(`http://localhost:3000/documents/${this.props.document_id}`,{
       method: "PATCH",
       headers:{
             "Content-type": "application/json"

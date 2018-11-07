@@ -41,7 +41,7 @@ class Notebook extends Component{
         {
           label: 'Yes',
           onClick: () => {
-            fetch(`https://warm-wave-64099.herokuapp.com/documents/${doc_id}`,{
+            fetch(`http://localhost:3000/documents/${doc_id}`,{
               method: "DELETE"
             }).then(res=> {
             if (res.ok) {
@@ -61,7 +61,7 @@ class Notebook extends Component{
   }
 
   componentDidMount(){
-    fetch(`https://warm-wave-64099.herokuapp.com/users/${this.props.user_id}`)
+    fetch(`http://localhost:3000/users/${this.props.user_id}`)
     .then(res=> res.json())
     .then(data => {
       this.props.setUserDocuments(data.documents)
@@ -71,7 +71,7 @@ class Notebook extends Component{
 
   componentDidUpdate(prevProps){
     if(this.props.user_id !== prevProps.user_id){
-      fetch(`https://warm-wave-64099.herokuapp.com/users/${this.props.user_id}`)
+      fetch(`http://localhost:3000/users/${this.props.user_id}`)
       .then(res=> res.json())
       .then(data => {
         this.props.setUserDocuments(data.documents)

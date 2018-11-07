@@ -1,4 +1,4 @@
-const BASE_API = "https://warm-wave-64099.herokuapp.com"
+const BASE_API = "http://localhost:3000"
 
 class UserAdapter{
   static login(data){

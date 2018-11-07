@@ -21,7 +21,7 @@ class createNotecardForm extends Component{
   }
 
   handleActualFormSubmit = (event) =>{
-    fetch('https://warm-wave-64099.herokuapp.com/notecards', {
+    fetch('http://localhost:3000/notecards', {
       method: "POST",
       headers:{
           "Content-type": "application/json"

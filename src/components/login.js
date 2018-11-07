@@ -30,7 +30,7 @@ class Login extends Component{
 
   handleNewUser = (event) =>{
     console.log(this.state.username, this.state.password);
-    fetch('https://warm-wave-64099.herokuapp.com/users', {
+    fetch('http://localhost:3000/users', {
       method: "POST",
       headers:{
           "Content-type": "application/json"

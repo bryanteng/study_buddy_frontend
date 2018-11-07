@@ -12,7 +12,7 @@ class Notecards extends Component{
   }
 
   componentDidMount(){
-    fetch(`https://warm-wave-64099.herokuapp.com/users/${this.props.user_id}`)
+    fetch(`http://localhost:3000/users/${this.props.user_id}`)
     .then(res=> res.json())
     .then(data => {
       this.props.setNotecards(data.notecards)
@@ -41,7 +41,7 @@ class Notecards extends Component{
         {
           label: 'Yes',
           onClick: () => {
-            fetch(`https://warm-wave-64099.herokuapp.com/notecards/${notecard_id}`,{
+            fetch(`http://localhost:3000/notecards/${notecard_id}`,{
               method: "DELETE"
             }).then(res=> {
             if (res.ok) {

@@ -2,7 +2,7 @@ import { addDocument, addCategory, setDelta } from './page'
 
 export const fetchDocument = (user_id, categoryName, documentTitle) => {
   return (dispatch) =>{
-    return fetch('https://warm-wave-64099.herokuapp.com/documents-and-category',{
+    return fetch('http://localhost:3000/documents-and-category',{
         method: "POST",
         headers:{
           "Content-type": "application/json"
