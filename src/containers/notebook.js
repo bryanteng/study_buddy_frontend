@@ -8,6 +8,8 @@ import { setUserDocuments, setDelta, setDocument, setCategories, removeDocument 
 import { changeCategory } from '../actions/create_notecard_form'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'
+import { API_ROOT } from '../constants';
+
 
 class Notebook extends Component{
 
@@ -41,7 +43,7 @@ class Notebook extends Component{
         {
           label: 'Yes',
           onClick: () => {
-            fetch(`http://localhost:3000/documents/${doc_id}`,{
+            fetch(`${API_ROOT}/documents/${doc_id}`,{
               method: "DELETE"
             }).then(res=> {
             if (res.ok) {
@@ -61,7 +63,7 @@ class Notebook extends Component{
   }
 
   componentDidMount(){
-    fetch(`http://localhost:3000/users/${this.props.user_id}`)
+    fetch(`${API_ROOT}/users/${this.props.user_id}`)
     .then(res=> res.json())
     .then(data => {
       this.props.setUserDocuments(data.documents)
@@ -71,7 +73,7 @@ class Notebook extends Component{
 
   componentDidUpdate(prevProps){
     if(this.props.user_id !== prevProps.user_id){
-      fetch(`http://localhost:3000/users/${this.props.user_id}`)
+      fetch(`${API_ROOT}/users/${this.props.user_id}`)
       .then(res=> res.json())
       .then(data => {
         this.props.setUserDocuments(data.documents)

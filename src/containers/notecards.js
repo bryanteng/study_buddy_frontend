@@ -3,6 +3,7 @@ import Notecard from '../components/notecard'
 import { connect } from 'react-redux'
 import { setNotecards, setNotecardCategories, setNotecardSubCategories, setCurrentDeck, removeNotecard, removeNotecardFromDeck } from '../actions/notecard'
 import { confirmAlert } from 'react-confirm-alert';
+import { API_ROOT } from '../constants';
 import 'react-confirm-alert/src/react-confirm-alert.css'
 
 class Notecards extends Component{
@@ -12,7 +13,7 @@ class Notecards extends Component{
   }
 
   componentDidMount(){
-    fetch(`http://localhost:3000/users/${this.props.user_id}`)
+    fetch(`${API_ROOT}/users/${this.props.user_id}`)
     .then(res=> res.json())
     .then(data => {
       this.props.setNotecards(data.notecards)
@@ -41,7 +42,7 @@ class Notecards extends Component{
         {
           label: 'Yes',
           onClick: () => {
-            fetch(`http://localhost:3000/notecards/${notecard_id}`,{
+            fetch(`${API_ROOT}/notecards/${notecard_id}`,{
               method: "DELETE"
             }).then(res=> {
             if (res.ok) {
