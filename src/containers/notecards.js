@@ -5,6 +5,7 @@ import { setNotecards, setNotecardCategories, setNotecardSubCategories, setCurre
 import { confirmAlert } from 'react-confirm-alert';
 import { API_ROOT } from '../constants';
 import 'react-confirm-alert/src/react-confirm-alert.css'
+import '../styles/notecards.css'
 
 class Notecards extends Component{
 

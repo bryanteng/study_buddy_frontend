@@ -1,0 +1,16 @@
+#notecard{
+  padding-left: 1vw;
+  padding-right: 1vw;
+  padding-top: 1vw;
+  height: 25vw;
+  width: 35vw;
+}
+
+.cardSpan{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-block;
+  text-align: center;
+  font-size: 1vw;
+}
