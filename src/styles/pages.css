@@ -1,0 +1,14 @@
+.outer{
+  width:100%;
+  text-align: left;
+}
+
+.inner{
+  display: inline-block;
+}
+
+#pageFile{
+  padding-left: 1vw;
+  padding-right: 1vw;
+  align: left;
+}

@@ -9,6 +9,8 @@ import { changeCategory } from '../actions/create_notecard_form'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import { API_ROOT } from '../constants';
+import PageFile from '../components/pageFile'
+import '../styles/pages.css'
 
 
 class Notebook extends Component{
@@ -105,20 +107,8 @@ class Notebook extends Component{
               <div class="header" id={category.id} onClick={this.handleCategoryClick} >{category.name}</div>
               <div class="list">
               {this.state.current_category == category.id ? this.props.user_documents.filter(document => document.category.id == category.id).map(doc =>
-                <div class="item">
-                  {doc.id == this.state.current_doc ? <i class="angle right icon"></i> : <i class="file icon"></i>}
-                  <div class="content">
-
-                    <div style={styles2}>
-                    <div class="header" id={doc.id} title={doc.title} onClick={this.handleTitleClick}>{doc.title}</div>
-                    <button class="ui mini inverted icon button" style={styles3} onClick={this.handleDeleteClick}><i class="trash icon" id={doc.id}></i>
-                    </button>
-                    </div>
-
-                  </div>
-                  </div>
+                <PageFile doc={doc} current_doc={this.state.current_doc} handleTitleClick={this.handleTitleClick} handleDeleteClick={this.handleDeleteClick} />
                 ) : null}
-
               </div>
             </div>
           </div>
