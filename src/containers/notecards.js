@@ -5,7 +5,7 @@ import { setNotecards, setNotecardCategories, setNotecardSubCategories, setCurre
 import { confirmAlert } from 'react-confirm-alert';
 import { API_ROOT } from '../constants';
 import 'react-confirm-alert/src/react-confirm-alert.css'
-import '../styles/notecards.css'
+import '../styles/notecard.css'
 
 class Notecards extends Component{
 
@@ -108,7 +108,7 @@ class Notecards extends Component{
       ): null }
       </div>
       <div class='stretched twelve wide column'>
-      <div class='ui segment cardss'>
+      <div class='ui segment'>
           {this.props.current_deck ? <Notecard deck={this.props.current_deck} /> : null }
         </div>
       </div>

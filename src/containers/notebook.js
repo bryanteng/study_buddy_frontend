@@ -35,6 +35,7 @@ class Notebook extends Component{
   }
 
   handleDeleteClick = (event) => {
+    console.log(event.target.id,'clicked doc');
     let doc_id = event.target.id
     confirmAlert({
       title: 'Click Yes to confirm',
@@ -110,7 +111,7 @@ class Notebook extends Component{
 
                     <div style={styles2}>
                     <div class="header" id={doc.id} title={doc.title} onClick={this.handleTitleClick}>{doc.title}</div>
-                    <button class="ui mini inverted icon button" style={styles3} id={doc.id} onClick={this.handleDeleteClick}><i class="trash icon"></i>
+                    <button class="ui mini inverted icon button" style={styles3} onClick={this.handleDeleteClick}><i class="trash icon" id={doc.id}></i>
                     </button>
                     </div>
 

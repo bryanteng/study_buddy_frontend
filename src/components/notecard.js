@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../styles/notecard.css'
 
 const Notecard = ({deck}) => (
-  <div className='card' >
+  <div className='cards' >
     {deck ? deck.map(card =>
       <div className="ui small fade reveal image">
         <div class="ui yellow inverted segment visible content" id="notecard" >
