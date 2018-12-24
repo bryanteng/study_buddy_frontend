@@ -84,17 +84,17 @@ class Notecards extends Component{
               {noteCards.filter(notecard=> notecard.category.name === category).map(nc=>nc.subcategory.name).filter(unique).map(subcategory =>
                 <div class="item">
                 {this.state.current_subcategory === subcategory ? <i class="folder open icon"></i> : <i class="folder icon"></i>}
-                  <div class="content">
-                    <div class="header" onClick={this.handleSubcategoryClick} id={subcategory} >{subcategory} </div>
-                    <div class="list">
-                    {this.state.current_subcategory === subcategory ? noteCards.filter(notecard => notecard.subcategory.name === subcategory).map(notecard =>
-                      <div class="item">
-                      <i class="clone icon"></i>
-                        <div class="content">
-                          <div class="header" id={notecard.id} >{notecard.front}<button class="ui mini inverted icon button" id={notecard.id} onClick={this.handleNotecardDelete}><i id={notecard.id} class="trash icon"></i></button>
-                          </div>
+                <div class="content">
+                  <div class="header" onClick={this.handleSubcategoryClick} id={subcategory} >{subcategory} </div>
+                  <div class="list">
+                  {this.state.current_subcategory === subcategory ? noteCards.filter(notecard => notecard.subcategory.name === subcategory).map(notecard =>
+                    <div class="item">
+                    <i class="clone icon"></i>
+                      <div class="content">
+                        <div class="header" id={notecard.id} >{notecard.front}<button class="ui mini inverted icon button" id={notecard.id} onClick={this.handleNotecardDelete}><i id={notecard.id} class="trash icon"></i></button>
                         </div>
                       </div>
+                    </div>
                     ) : null }
                     </div>
                   </div>
@@ -108,7 +108,7 @@ class Notecards extends Component{
       </div>
       <div class='stretched twelve wide column'>
       <div class='ui segment cardss'>
-          <Notecard deck={this.props.current_deck} />
+          {this.props.current_deck ? <Notecard deck={this.props.current_deck} /> : null }
         </div>
       </div>
       </div>
