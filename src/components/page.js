@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import ReactQuill from 'react-quill'; // ES6
 import 'react-quill/dist/quill.snow.css'; // ES6
-// import ImageResize from 'quill-image-resize-module';
-// Quill.register('modules/imageResize', ImageResize)
 import { connect } from 'react-redux'
 import { setDelta, changeDelta } from '../actions/page'
 import { API_ROOT, HEADERS } from '../constants';
