@@ -5,16 +5,15 @@ import 'react-quill/dist/quill.snow.css'; // ES6
 // Quill.register('modules/imageResize', ImageResize)
 import { connect } from 'react-redux'
 import { setDelta, changeDelta } from '../actions/page'
+import { API_ROOT, HEADERS } from '../constants';
 
 class Page extends Component {
 
   handleBlur = (previousRange, source, editor) => {
     if (source === "user"){
-    fetch(`http://localhost:3000/documents/${this.props.document_id}`,{
+    fetch(`${API_ROOT}/documents/${this.props.document_id}`,{
       method: "PATCH",
-      headers:{
-            "Content-type": "application/json"
-        },
+      headers: HEADERS,
         body: JSON.stringify({delta: editor.getContents().ops})
       }
     ).then(res=> res.json())
@@ -23,15 +22,14 @@ class Page extends Component {
   }
 
   componentDidMount(){
-    fetch(`http://localhost:3000/documents/${this.props.document_id}`)
+    fetch(`${API_ROOT}/documents/${this.props.document_id}`)
     .then(res=> res.json())
     .then(data => this.props.setDelta(data.id))
   }
 
   componentDidUpdate(prevProps){
-
     if(this.props.document_id !== prevProps.document_id){
-      fetch(`http://localhost:3000/documents/${this.props.document_id}`)
+      fetch(`${API_ROOT}/documents/${this.props.document_id}`)
       .then(res=> res.json())
       .then(data => this.props.setDelta(data.id))
     }
@@ -40,10 +38,9 @@ class Page extends Component {
   render(){
     return(
       <div class="container" id="editor" >
-        <ReactQuill class="editor"
+        <ReactQuill
           theme={"snow"}
           onBlur={this.handleBlur}
-          defaultValue="hello world"
           value={this.props.delta}
           modules={Page.modules}
           formats={Page.formats}>

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import UserAdapter from '../adapters/UserAdapter'
 import { connect } from 'react-redux'
 import { setUserId, setUsername } from '../actions/login'
+import { API_ROOT } from '../constants';
 
 class Login extends Component{
 
@@ -30,7 +31,7 @@ class Login extends Component{
 
   handleNewUser = (event) =>{
     console.log(this.state.username, this.state.password);
-    fetch('http://localhost:3000/users', {
+    fetch(`${API_ROOT}/users`, {
       method: "POST",
       headers:{
           "Content-type": "application/json"

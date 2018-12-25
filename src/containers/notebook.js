@@ -8,6 +8,10 @@ import { setUserDocuments, setDelta, setDocument, setCategories, removeDocument 
 import { changeCategory } from '../actions/create_notecard_form'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css'
+import { API_ROOT } from '../constants';
+import PageFile from '../components/pageFile'
+import '../styles/pages.css'
+
 
 class Notebook extends Component{
 
@@ -33,6 +37,7 @@ class Notebook extends Component{
   }
 
   handleDeleteClick = (event) => {
+    console.log(event.target.id,'clicked doc');
     let doc_id = event.target.id
     confirmAlert({
       title: 'Click Yes to confirm',
@@ -41,7 +46,7 @@ class Notebook extends Component{
         {
           label: 'Yes',
           onClick: () => {
-            fetch(`http://localhost:3000/documents/${doc_id}`,{
+            fetch(`${API_ROOT}/documents/${doc_id}`,{
               method: "DELETE"
             }).then(res=> {
             if (res.ok) {
@@ -61,7 +66,7 @@ class Notebook extends Component{
   }
 
   componentDidMount(){
-    fetch(`http://localhost:3000/users/${this.props.user_id}`)
+    fetch(`${API_ROOT}/users/${this.props.user_id}`)
     .then(res=> res.json())
     .then(data => {
       this.props.setUserDocuments(data.documents)
@@ -71,7 +76,7 @@ class Notebook extends Component{
 
   componentDidUpdate(prevProps){
     if(this.props.user_id !== prevProps.user_id){
-      fetch(`http://localhost:3000/users/${this.props.user_id}`)
+      fetch(`${API_ROOT}/users/${this.props.user_id}`)
       .then(res=> res.json())
       .then(data => {
         this.props.setUserDocuments(data.documents)
@@ -81,41 +86,20 @@ class Notebook extends Component{
   }
 
   render(){
-    const styles1 = {
-      margin: '20px'
-    }
-    const styles2 ={
-      display: 'flex'
-    }
-    const styles3 ={
-      paddingLeft: '25px',
-      display: 'flex'
-    }
+
     return(
       <div class="ui grid">
         <div class='three wide column'>
         {this.props.user_documents && this.props.user_categories ? this.props.user_categories.map(category =>
-        <div class="ui list" style={styles1}>
+        <div class="ui list" id="list" >
           <div class="item">
             {parseInt(this.state.current_category,10) === category.id ? <i class="folder open icon"></i> : <i class="folder icon"></i> }
             <div class="content">
               <div class="header" id={category.id} onClick={this.handleCategoryClick} >{category.name}</div>
               <div class="list">
               {this.state.current_category == category.id ? this.props.user_documents.filter(document => document.category.id == category.id).map(doc =>
-                <div class="item">
-                  {doc.id == this.state.current_doc ? <i class="angle right icon"></i> : <i class="file icon"></i>}
-                  <div class="content">
-
-                    <div style={styles2}>
-                    <div class="header" id={doc.id} title={doc.title} onClick={this.handleTitleClick}>{doc.title}</div>
-                    <button class="ui mini inverted icon button" style={styles3} id={doc.id} onClick={this.handleDeleteClick}><i class="trash icon"></i>
-                    </button>
-                    </div>
-
-                  </div>
-                  </div>
+                <PageFile class='page' doc={doc} current_doc={this.state.current_doc} handleTitleClick={this.handleTitleClick} handleDeleteClick={this.handleDeleteClick} />
                 ) : null}
-
               </div>
             </div>
           </div>

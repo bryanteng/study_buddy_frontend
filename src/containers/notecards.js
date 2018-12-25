@@ -3,7 +3,9 @@ import Notecard from '../components/notecard'
 import { connect } from 'react-redux'
 import { setNotecards, setNotecardCategories, setNotecardSubCategories, setCurrentDeck, removeNotecard, removeNotecardFromDeck } from '../actions/notecard'
 import { confirmAlert } from 'react-confirm-alert';
+import { API_ROOT } from '../constants';
 import 'react-confirm-alert/src/react-confirm-alert.css'
+import '../styles/notecard.css'
 
 class Notecards extends Component{
 
@@ -12,7 +14,7 @@ class Notecards extends Component{
   }
 
   componentDidMount(){
-    fetch(`http://localhost:3000/users/${this.props.user_id}`)
+    fetch(`${API_ROOT}/users/${this.props.user_id}`)
     .then(res=> res.json())
     .then(data => {
       this.props.setNotecards(data.notecards)
@@ -41,7 +43,7 @@ class Notecards extends Component{
         {
           label: 'Yes',
           onClick: () => {
-            fetch(`http://localhost:3000/notecards/${notecard_id}`,{
+            fetch(`${API_ROOT}/notecards/${notecard_id}`,{
               method: "DELETE"
             }).then(res=> {
             if (res.ok) {
@@ -83,17 +85,17 @@ class Notecards extends Component{
               {noteCards.filter(notecard=> notecard.category.name === category).map(nc=>nc.subcategory.name).filter(unique).map(subcategory =>
                 <div class="item">
                 {this.state.current_subcategory === subcategory ? <i class="folder open icon"></i> : <i class="folder icon"></i>}
-                  <div class="content">
-                    <div class="header" onClick={this.handleSubcategoryClick} id={subcategory} >{subcategory} </div>
-                    <div class="list">
-                    {this.state.current_subcategory === subcategory ? noteCards.filter(notecard => notecard.subcategory.name === subcategory).map(notecard =>
-                      <div class="item">
-                      <i class="clone icon"></i>
-                        <div class="content">
-                          <div class="header" id={notecard.id} >{notecard.front}<button class="ui mini inverted icon button" id={notecard.id} onClick={this.handleNotecardDelete}><i id={notecard.id} class="trash icon"></i></button>
-                          </div>
+                <div class="content">
+                  <div class="header" onClick={this.handleSubcategoryClick} id={subcategory} >{subcategory} </div>
+                  <div class="list">
+                  {this.state.current_subcategory === subcategory ? noteCards.filter(notecard => notecard.subcategory.name === subcategory).map(notecard =>
+                    <div class="item">
+                    <i class="clone icon"></i>
+                      <div class="content">
+                        <div class="header" id={notecard.id} >{notecard.front}<button class="ui mini inverted icon button" id={notecard.id} onClick={this.handleNotecardDelete}><i id={notecard.id} class="trash icon"></i></button>
                         </div>
                       </div>
+                    </div>
                     ) : null }
                     </div>
                   </div>
@@ -106,8 +108,8 @@ class Notecards extends Component{
       ): null }
       </div>
       <div class='stretched twelve wide column'>
-      <div class='ui segment cardss'>
-          <Notecard deck={this.props.current_deck} />
+      <div class='ui segment'>
+          {this.props.current_deck ? <Notecard deck={this.props.current_deck} /> : null }
         </div>
       </div>
       </div>
