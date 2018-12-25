@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { setNotecards, setNotecardCategories, setNotecardSubCategories, setCurrentDeck, removeNotecard, removeNotecardFromDeck } from '../actions/notecard'
 import { confirmAlert } from 'react-confirm-alert';
 import { API_ROOT } from '../constants';
+import SubCatNotecardDisplay from '../components/subCatNotecardDisplay'
+import SubCatDisplay from '../components/subCatDisplay'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import '../styles/notecard.css'
 
@@ -67,39 +69,20 @@ class Notecards extends Component{
     const unique = (subCategory, index, self) => {
       return self.indexOf(subCategory) === index;
     }
-    const styles1 = {
-      margin: '20px'
-    }
 
     const noteCards = this.props.notecards
     return(
       <div class="ui grid">
         <div class='three wide column'>
         {noteCards && this.props.notecard_categories ? this.props.notecard_categories.map(category =>
-        <div class="ui list" style={styles1}>
+        <div class="ui list" id="list">
           <div class="item">
             <i class="folder icon"></i>
             <div class="content">
               <div class="header">{category}</div>
               <div class="list">
               {noteCards.filter(notecard=> notecard.category.name === category).map(nc=>nc.subcategory.name).filter(unique).map(subcategory =>
-                <div class="item">
-                {this.state.current_subcategory === subcategory ? <i class="folder open icon"></i> : <i class="folder icon"></i>}
-                <div class="content">
-                  <div class="header" onClick={this.handleSubcategoryClick} id={subcategory} >{subcategory} </div>
-                  <div class="list">
-                  {this.state.current_subcategory === subcategory ? noteCards.filter(notecard => notecard.subcategory.name === subcategory).map(notecard =>
-                    <div class="item">
-                    <i class="clone icon"></i>
-                      <div class="content">
-                        <div class="header" id={notecard.id} >{notecard.front}<button class="ui mini inverted icon button" id={notecard.id} onClick={this.handleNotecardDelete}><i id={notecard.id} class="trash icon"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                    ) : null }
-                    </div>
-                  </div>
-                </div>
+                <SubCatDisplay currentSubcategory={this.state.current_subcategory} handleSubcategoryClick={this.handleSubcategoryClick} handleNotecardDelete={this.handleNotecardDelete} noteCards={noteCards} subcategory={subcategory} />
                 )}
               </div>
             </div>
