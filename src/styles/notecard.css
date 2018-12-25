@@ -4,6 +4,7 @@
   padding-top: 1vw;
   height: 25vw;
   width: 35vw;
+  text-align: center;
 }
 
 .cardSpan{
@@ -11,7 +12,6 @@
   top: 50%;
   transform: translateY(-50%);
   display: inline-block;
-  text-align: center;
   font-size: 1vw;
 }
 
@@ -22,4 +22,20 @@
   padding-left: 1vw;
   padding-right: 1vw;
   padding-top: 1vw;
+}
+
+.outer{
+  font-size: 1vw;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.inner{
+  display: inline-block;
+  font-size: 1vw;
+}
+
+.header{
+  font-size: 1vw;
+  text-align: left;
 }

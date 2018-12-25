@@ -7,15 +7,13 @@ import { API_ROOT, HEADERS } from '../constants';
 
 class createNotecardForm extends Component{
 
-  constructor(props){
-    super(props)
-    this.state={
-      categoryName: "",
-      subcategoryName: "",
-      front: "",
-      back: ""
-    }
+  state={
+    categoryName: "",
+    subcategoryName: "",
+    front: "",
+    back: ""
   }
+
 
   handleFormSubmit = (event) =>{
     event.preventDefault()

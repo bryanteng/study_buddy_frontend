@@ -107,10 +107,10 @@ class Notebook extends Component{
       ) : null}
       </div>
       <div class='stretched twelve wide column'>
-      <div class='ui segment'>
-            <CreateDocumentForm />
-            <CreateNotecardForm />
-            <CreateGraphForm />
+      <div class='ui segment outer'>
+            <div class="inner"><CreateDocumentForm /></div>
+            <div class="inner"><CreateNotecardForm /></div>
+            <div class="inner"><CreateGraphForm /></div>
             <br/>
             <br/>
             {this.state.current_doc ? <Page /> : null }
