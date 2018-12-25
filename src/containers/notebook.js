@@ -86,28 +86,19 @@ class Notebook extends Component{
   }
 
   render(){
-    const styles1 = {
-      margin: '20px'
-    }
-    const styles2 ={
-      display: 'flex'
-    }
-    const styles3 ={
-      paddingLeft: '25px',
-      display: 'flex'
-    }
+
     return(
       <div class="ui grid">
         <div class='three wide column'>
         {this.props.user_documents && this.props.user_categories ? this.props.user_categories.map(category =>
-        <div class="ui list" style={styles1}>
+        <div class="ui list" id="list" >
           <div class="item">
             {parseInt(this.state.current_category,10) === category.id ? <i class="folder open icon"></i> : <i class="folder icon"></i> }
             <div class="content">
               <div class="header" id={category.id} onClick={this.handleCategoryClick} >{category.name}</div>
               <div class="list">
               {this.state.current_category == category.id ? this.props.user_documents.filter(document => document.category.id == category.id).map(doc =>
-                <PageFile doc={doc} current_doc={this.state.current_doc} handleTitleClick={this.handleTitleClick} handleDeleteClick={this.handleDeleteClick} />
+                <PageFile class='page' doc={doc} current_doc={this.state.current_doc} handleTitleClick={this.handleTitleClick} handleDeleteClick={this.handleDeleteClick} />
                 ) : null}
               </div>
             </div>

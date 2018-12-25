@@ -1,14 +1,28 @@
 .outer{
-  width:100%;
-  text-align: left;
+  font-size: 1vw;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .inner{
   display: inline-block;
+  font-size: 1vw;
 }
 
-#pageFile{
+.page{
   padding-left: 1vw;
   padding-right: 1vw;
-  align: left;
+}
+
+.item{
+  padding-left: 1vw;
+}
+
+.content{
+  text-align: left;
+  padding-left: 1vw;
+}
+
+#list{
+  padding-left: 1vw;
 }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Popup from "reactjs-popup";
 import { changeCategory } from '../actions/create_notecard_form'
 import { addNotecard, addNotecardCategory, addNotecardSubcategory } from '../actions/notecard'
-import { API_ROOT } from '../constants';
+import { API_ROOT, HEADERS } from '../constants';
 
 class createNotecardForm extends Component{
 
@@ -24,9 +24,7 @@ class createNotecardForm extends Component{
   handleActualFormSubmit = (event) =>{
     fetch(`${API_ROOT}/notecards`, {
       method: "POST",
-      headers:{
-          "Content-type": "application/json"
-      },
+      headers: HEADERS,
         body: JSON.stringify({user_id: this.props.user_id, category: this.state.categoryName, subcategory: this.state.subcategoryName, front: this.state.front, back:this.state.back})
       }
     ).then(res=> res.json())
