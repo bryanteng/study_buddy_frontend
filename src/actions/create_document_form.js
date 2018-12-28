@@ -1,8 +1,9 @@
 import { addDocument, addCategory, setDelta } from './page'
+import { API_ROOT } from '../constants';
 
 export const fetchDocument = (user_id, categoryName, documentTitle) => {
   return (dispatch) =>{
-    return fetch('http://localhost:3000/documents-and-category',{
+    return fetch(`${ API_ROOT }/documents-and-category`,{
         method: "POST",
         headers:{
           "Content-type": "application/json"

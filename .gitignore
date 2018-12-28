@@ -25,3 +25,6 @@ yarn-error.log*
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+awscli-bundle.zip
+awscli-bundle/

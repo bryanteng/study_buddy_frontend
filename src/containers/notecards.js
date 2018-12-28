@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { setNotecards, setNotecardCategories, setNotecardSubCategories, setCurrentDeck, removeNotecard, removeNotecardFromDeck } from '../actions/notecard'
 import { confirmAlert } from 'react-confirm-alert';
 import { API_ROOT } from '../constants';
-import SubCatNotecardDisplay from '../components/subCatNotecardDisplay'
 import SubCatDisplay from '../components/subCatDisplay'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import '../styles/notecard.css'

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import UserAdapter from '../adapters/UserAdapter'
 import { connect } from 'react-redux'
-import { setUserId, setUsername } from '../actions/login'
+import { setUserId, setUsername, setUser } from '../actions/login'
 import { API_ROOT } from '../constants';
 
 class Login extends Component{
@@ -21,16 +21,14 @@ class Login extends Component{
     .then(data =>{
       if(!data.error){
         console.log(data, 'data from login comp');
-        this.props.setUserId(data.user.user_id)
-        this.props.setUsername(data.user.username)
+        this.props.setUser(data.user)
         this.props.history.push('/notebook')
         localStorage.setItem("token", data.user.token)
       }
     })
   }
-
+  // fix what happens when a new user tries to login
   handleNewUser = (event) =>{
-    console.log(this.state.username, this.state.password);
     fetch(`${API_ROOT}/users`, {
       method: "POST",
       headers:{
@@ -39,8 +37,7 @@ class Login extends Component{
         body: JSON.stringify({username: this.state.username, password: this.state.password})
       }
     ).then(res => res.json())
-    .then(console.log)
-
+    // .then(console.log)
   }
 
   render(){
@@ -67,4 +64,4 @@ class Login extends Component{
   }
 }
 
-export default connect(null,{ setUserId, setUsername })(Login)
+export default connect(null,{ setUserId, setUsername, setUser })(Login)

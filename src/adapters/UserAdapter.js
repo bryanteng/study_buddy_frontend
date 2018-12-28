@@ -1,8 +1,8 @@
-const BASE_API = "http://localhost:3000"
+import { API_ROOT } from '../constants';
 
 class UserAdapter{
   static login(data){
-    return fetch(`${BASE_API}/login`,{
+    return fetch(`${API_ROOT}/login`,{
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -14,7 +14,7 @@ class UserAdapter{
   }
 
   static persist(token){
-    return fetch(`${BASE_API}/persist`,{
+    return fetch(`${API_ROOT}/persist`,{
       method: "GET",
       headers: {
         "Authorization" : token
